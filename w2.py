@@ -1,5 +1,5 @@
-from selenium import webdriver
 import argparse
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 
 def open(i):
@@ -11,17 +11,16 @@ def open(i):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('o', help="Enter Song name", type=str)
-
 args = parser.parse_args()
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
-browser = webdriver.Chrome(options=chrome_options)
+browser = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
 browser.get(open(args.o))
 type(browser)
 linkElem = browser.find_element_by_id('thumbnail')
 type(linkElem)
-linkElem.click()
+# linkElem.click()
 print(browser.current_url)
 browser.set_network_conditions(
     offline=False,
